@@ -42,8 +42,40 @@ int main()
     toyArray[1] = Toy("Lego: Heroes Superman",1.6,0.3,0.3,false);
 
     Box<Toy> toyBox2 = toyBox;
-	toyBox2.add(toyArray,2);
-	cout << toyBox2;
+    toyBox2.add(toyArray,2);
+    //cout << toyBox2;
 
     delete [] toyArray;
+
+    try {
+        Toy toy3("Lego: Heroes Superman",1.0,0.7,1.1,false);
+        // trying to add a toy bigger than the box
+        // should give an error
+        toyBox.add(toy3);
+    } catch (const string & err_msg) {
+        cout <<"### ERROR ### "<< err_msg << endl;
+    }
+
+    try {
+        Toy toy3("Hot Wheels: Speedtropolis Playset",6,0.7,0.8,false);
+        // trying to add a toy heavier than the box's remaining available weight
+        // should give an error
+        toyBox.add(toy3);
+    } catch (const string & err_msg) {
+        cout <<"### ERROR ### "<< err_msg << endl;
+    }
+
+    toyBox[1].setContainsBattery(true);
+
+    //Box<Box<Toy> > multipleBoxes(1,1,1,20);
+    //multipleBoxes.add(toyBox);
+    //multipleBoxes.add(toyBox2);
+
+    //Book Constructor: label, weight, length, width
+    Book book("Terry Pratchett: The Colour of Magic",0.2,0.4,0.2);
+    Box<Book> bookBox(0.05,0.2,0.4,2);
+    bookBox.add(book);
+
+    cout<<bookBox<<endl;
+
 }
